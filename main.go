@@ -2,8 +2,8 @@ package main
 
 import (
 	"demo/app-demo/account"
-	"demo/app-demo/files"
 	"fmt"
+	"github.com/fatih/color"
 )
 
 func getMenu() int {
@@ -17,33 +17,46 @@ func getMenu() int {
 	return variant
 }
 
-func findAccount() {
-
+func findAccount(vault *account.Vault) {
+	url := promptData("Введите URL")
+	accounts := vault.FindAccountsByUrl(url)
+	if len(accounts) == 0 {
+		color.Red("Аккаунтов не найдено")
+	}
+	for _, account := range accounts {
+		account.Output()
+	}
 }
-func deleteAccount() {
-
+func deleteAccount(vault *account.Vault) {
+	url := promptData("Введите URL")
+	isDeleted := vault.DeleteAccount(url)
+	if isDeleted {
+		color.Green("Удалено")
+	} else {
+		color.Red("Не найден")
+	}
 }
 
 func main() {
 	fmt.Println("___Менеджер паролей___")
+	vault := account.NewVault()
 Menu:
 	for {
 		variant := getMenu()
 		switch variant {
 		case 1:
-			createAcount()
+			createAcount(vault)
 		case 2:
-			findAccount()
+			findAccount(vault)
 		case 3:
-			deleteAccount()
+			deleteAccount(vault)
 		default:
 			break Menu
 		}
 	}
-	createAcount()
 }
 
-func createAcount() {
+func createAcount(vault *account.Vault) {
 	login := promptData("Введите логин")
 	password := promptData("Введите пароль")
 	url := promptData("Введите URL")
@@ -53,14 +66,7 @@ func createAcount() {
 		return
 	}
 
-	vault := account.NewVault()
 	vault.AddAccount(*myAccount)
-	data, err := vault.ToBytes()
-	if err != nil {
-		fmt.Println("Ошибка преобразования в JSON")
-		return
-	}
-	files.WriteFile(data, "data.json")
 
 	//myAccount.OutputPassword()
 }

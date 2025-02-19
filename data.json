@@ -1,12 +1,1 @@
-{
-  "accounts": [
-    {
-      "login": "vmf",
-      "password": "wewe",
-      "url": "https://go.ru",
-      "createdAt": "2025-02-19T15:26:51.4021808+03:00",
-      "updateddAt": "2025-02-19T15:26:51.4021808+03:00"
-    }
-  ],
-  "updateddAt": "2025-02-19T15:26:51.4021808+03:00"
-}
+{"accounts":[{"login":"er@rr","password":"rr","url":"https://gf.ty","createdAt":"2025-02-19T15:51:16.0381727+03:00","updateddAt":"2025-02-19T15:51:16.0381727+03:00"}],"updateddAt":"2025-02-19T16:42:21.6343758+03:00"}
